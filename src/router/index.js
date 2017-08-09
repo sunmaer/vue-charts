@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/common/Home'
-import Chart from '@/page/chart/Chart'
+import Egraph from '@/page/chart/Egraph'
+import Jgraph from '@/page/chart/Jgraph'
 
 Vue.use(Router)
 
@@ -14,7 +15,15 @@ export default new Router({
       children: [
         {
           path: '',
-          component: Chart
+          component: Jgraph
+        },
+        {
+          path: 'egraph',
+          component: Egraph
+        },
+        {
+          path: 'jgraph',
+          component: Jgraph
         }
       ]
     }

@@ -13,13 +13,14 @@
 
     <el-col class="main">
       <aside :class="isCollapse ? 'menu-collapse' : 'menu'">
-        <el-menu default-active="" class="el-menu-vertical-demo" :collapse="isCollapse" router>
+        <el-menu default-active="jgraph" class="el-menu-vertical-demo" :collapse="isCollapse" router>
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-message"></i>
               <span slot="title">导航一</span>
             </template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="egraph">关系图1</el-menu-item>
+            <el-menu-item index="jgraph">关系图2</el-menu-item>
           </el-submenu>
           <el-menu-item index="">
             <i class="el-icon-menu"></i>
