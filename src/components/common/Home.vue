@@ -13,26 +13,15 @@
 
     <el-col class="main">
       <aside :class="isCollapse ? 'menu-collapse' : 'menu'">
-        <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse">
+        <el-menu default-active="" class="el-menu-vertical-demo" :collapse="isCollapse" router>
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-message"></i>
               <span slot="title">导航一</span>
             </template>
-            <el-menu-item-group>
-              <span slot="title">分组一</span>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <span slot="title">选项4</span>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
+            <el-menu-item index="1-1">选项1</el-menu-item>
           </el-submenu>
-          <el-menu-item index="2">
+          <el-menu-item index="">
             <i class="el-icon-menu"></i>
             <span slot="title">导航二</span>
           </el-menu-item>
@@ -95,7 +84,7 @@
 				font-size: 22px;
 				padding-left:20px;
 				padding-right:20px;
-				border-color: rgba(238,241,146,0.3);
+				border-color: rgba(238, 241, 146, 0.3);
 				border-right-width: 1px;
 				border-right-style: solid;
       }
