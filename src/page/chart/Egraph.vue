@@ -28,18 +28,20 @@
           return Math.random() * (max - min) + min
         }
 
-        function createRandomNode (depth, data) {
-          let x = (mainDom.clientWidth - 20) * depth / (constMaxDepth + 1) + 20
-          let y = mainDom.clientHeight / 2 + (0.5 - Math.random()) * 200
+        function createRandomNode (depth, num, n) {
+          // let x = mainDom.clientWidth / 2 + (0.5 - Math.random()) * 500
+          let x = (mainDom.clientWidth / (num + 1)) * n
+          let y = (mainDom.clientHeight - 20) * depth / (constMaxDepth + 1) + 20
           let node = {
             name: 'NODE_' + nodes.length,
             value: rangeRandom(constMinRadius, constMaxRadius),
-            // Custom properties
             id: nodes.length,
             depth: depth,
-            x: y,
-            y: x,
-            category: depth === constMaxDepth ? 0 : 1
+            x: x,
+            y: y,
+            category: depth === constMaxDepth ? 0 : 1,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460',
+            symbolSize: [30, 30]
           }
 
           nodes.push(node)
@@ -49,7 +51,7 @@
         function forceMockThreeData () {
           // let depth = 0
 
-          let rootNode = createRandomNode(0)
+          let rootNode = createRandomNode(0, 1, 1)
           rootNode.name = 'ROOT'
           rootNode.category = 2
 
@@ -57,8 +59,7 @@
             let nChildren = Math.round(rangeRandom(constMinChildren, constMaxChildren))
 
             for (let i = 0; i < nChildren; i++) {
-              let childNode = createRandomNode(depth)
-              console.log(parentNode.id, childNode.id, depth)
+              let childNode = createRandomNode(depth, nChildren, i + 1)
               links.push({
                 source: parentNode.id,
                 target: childNode.id,
@@ -74,7 +75,6 @@
         }
 
         forceMockThreeData()
-        // createRandomNode(0,$scope.datalist);
 
         let option = {
           tooltip: {},
@@ -101,10 +101,10 @@
                 }
               },
               data: nodes,
-              // links: [],
               links: links,
               lineStyle: {
                 normal: {
+                  color: 'rgb(117, 171, 220)',
                   opacity: 0.9,
                   width: 2,
                   curveness: 0
