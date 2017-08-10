@@ -8,11 +8,11 @@
   export default {
     data () {
       return {
-        data_nodes: [
+        nodes: [
           {
             name: 'node1',
             depth: 1,
-            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?                                                                               v=4&s=460'
           },
           {
             name: 'node2',
@@ -45,7 +45,7 @@
             symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
           }
         ],
-        data_links: [
+        links: [
           {
             source: 'node1',
             target: 'node2',
@@ -81,88 +81,49 @@
     },
     methods: {
       /* 获取层数 */
-      getDepth(array) {
+      getDepth (nodeList) {
         let constMaxDepth = 0
-        this.data_nodes.forEach((value, index, arr) => {
+        nodeList.forEach((value, index, arr) => {
           constMaxDepth = value.depth > constMaxDepth ? value.depth : constMaxDepth
         })
         return constMaxDepth
       },
       /* 获取每层节点数 */
-      getNodeNum(array) {
-
+      getNodes (nodeList) {
+        let constMaxDepth = this.getDepth(nodeList)
+        let array = new Array(constMaxDepth)
+        let len = array.length
+        for (let i = 0; i < len; i++) {
+          array[i] = 0
+        }
+        nodeList.forEach((value, index, arr) => {
+          array[value.depth - 1]++
+        })
+        return array
       },
+      /* 获取每层内部节点顺序 */
+      getNodeIndex (nodeList, index) {
+        let array = this.getNodes(nodeList)
+        let count = 0
+        let i = 0
+        while (index > count) {
+          count += array[i]
+          i++
+        }
+        count -= array[i - 1]
+        console.log(index - count)
+        return index - count
+      },
+      /* 画图 */
       drawChart () {
         let myChart = this.$echarts.init(document.getElementById('main'))
-        // let nodes = []
-        // let links = []
-        // let constMaxDepth = 4
-        // let constMaxChildren = 3
-        // let constMinChildren = 2
-        // let constMaxRadius = 10
-        // let constMinRadius = 2
-        // let mainDom = {
-        //   clientWidth: 1000,
-        //   clientHeight: 500
-        // }
-
-        // function rangeRandom (min, max) {
-        //   return Math.random() * (max - min) + min
-        // }
-
-        // function createRandomNode (depth) {
-        //   let x = mainDom.clientWidth / 2 + (0.5 - Math.random()) * 300
-        //   let y = (mainDom.clientHeight - 20) * depth / (constMaxDepth + 1) + 20
-        //   let node = {
-        //     name: 'NODE_' + nodes.length,
-        //     value: rangeRandom(constMinRadius, constMaxRadius),
-        //     id: nodes.length,
-        //     depth: depth,
-        //     x: x,
-        //     y: y,
-        //     category: depth === constMaxDepth ? 0 : 1,
-        //     symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460',
-        //     symbolSize: [30, 30]
-        //   }
-
-        //   nodes.push(node)
-        //   return node
-        // }
-
-        // function forceMockThreeData () {
-        //   // let depth = 0
-
-        //   let rootNode = createRandomNode(0)
-        //   rootNode.name = 'ROOT'
-        //   rootNode.category = 2
-
-        //   function mock (parentNode, depth) {
-        //     let nChildren = Math.round(rangeRandom(constMinChildren, constMaxChildren))
-
-        //     for (let i = 0; i < nChildren; i++) {
-        //       let childNode = createRandomNode(depth)
-        //       links.push({
-        //         source: parentNode.id,
-        //         target: childNode.id,
-        //         weight: 1
-        //       })
-        //       if (depth < constMaxDepth) {
-        //         mock(childNode, depth + 1)
-        //       }
-        //     }
-        //   }
-
-        //   mock(rootNode, 1)
-        // }
-
-        // forceMockThreeData()
-        let nodes = []
-        let links = this.data_links
+        let nodeList = []
         let width = document.getElementById('main').offsetWidth
         let height = document.getElementById('main').offsetHeight
-        
-        this.data_nodes.forEach((value, index, arr) => {
-          let x = width / 2 + (0.5 - Math.random()) * 300
+        let constMaxDepth = this.getDepth(this.nodes)
+        let array = this.getNodes(this.nodes)
+        this.nodes.forEach((value, index, arr) => {
+          let x = width / (array[value.depth - 1] + 1) * this.getNodeIndex(this.nodes, index + 1)
           let y = (height - 20) * value.depth / (constMaxDepth + 1) + 20
           let node = {
             name: value.name,
@@ -175,7 +136,7 @@
             symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460',
             symbolSize: [30, 30]
           }
-          nodes.push(node)
+          nodeList.push(node)
         })
 
         let option = {
@@ -202,8 +163,8 @@
                   }
                 }
               },
-              data: nodes,
-              links: links,
+              data: nodeList,
+              links: this.links,
               lineStyle: {
                 normal: {
                   color: 'rgb(117, 171, 220)',
