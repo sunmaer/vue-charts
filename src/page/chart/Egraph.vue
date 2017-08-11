@@ -12,7 +12,7 @@
           {
             name: 'node1',
             depth: 1,
-            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?                                                                               v=4&s=460'
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
           },
           {
             name: 'node2',
@@ -42,6 +42,46 @@
           {
             name: 'node7',
             depth: 3,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+          },
+          {
+            name: 'node8',
+            depth: 4,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+          },
+          {
+            name: 'node9',
+            depth: 4,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+          },
+          {
+            name: 'node10',
+            depth: 4,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+          },
+          {
+            name: 'node11',
+            depth: 4,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+          },
+          {
+            name: 'node12',
+            depth: 4,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+          },
+          {
+            name: 'node13',
+            depth: 4,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+          },
+          {
+            name: 'node14',
+            depth: 4,
+            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
+          },
+          {
+            name: 'node15',
+            depth: 4,
             symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460'
           }
         ],
@@ -75,6 +115,58 @@
             source: 'node3',
             target: 'node7',
             weight: 1
+          },
+          {
+            source: 'node4',
+            target: 'node8',
+            weight: 1
+          },
+          {
+            source: 'node4',
+            target: 'node9',
+            weight: 1
+          },
+          {
+            source: 'node5',
+            target: 'node10',
+            weight: 1
+          },
+          {
+            source: 'node5',
+            target: 'node11',
+            weight: 1
+          },
+          {
+            source: 'node6',
+            target: 'node12',
+            weight: 1
+          },
+          {
+            source: 'node6',
+            target: 'node13',
+            weight: 1
+          },
+          {
+            source: 'node7',
+            target: 'node14',
+            weight: 1
+          },
+          {
+            source: 'node7',
+            target: 'node15',
+            weight: 1,
+            label: {
+              normal: {
+                show: true, // 是否显示边标签
+                position: 'middle',
+                formatter: '自定义边 Label',
+                textStyle: {
+                  color: 'rgb(192, 0, 0)',
+                  fontWeight: 'bold',
+                  fontSize: 12
+                }
+              }
+            }
           }
         ]
       }
@@ -89,7 +181,7 @@
         return constMaxDepth
       },
       /* 获取每层节点数 */
-      getNodes (nodeList) {
+      getDepthNodes (nodeList) {
         let constMaxDepth = this.getDepth(nodeList)
         let array = new Array(constMaxDepth)
         for (let i = 0; i < constMaxDepth; i++) { // 初始化数组
@@ -102,7 +194,7 @@
       },
       /* 获取每层节点内部顺序 */
       getNodeIndex (nodeList, index) {
-        let array = this.getNodes(nodeList)
+        let array = this.getDepthNodes(nodeList)
         let count = 0
         let i = 0
         while (index > count) {
@@ -112,31 +204,40 @@
         count -= array[i - 1]
         return index - count
       },
-      /* 画图 */
+      /* 获取节点 X 坐标 */
+      getX (DomWidth, arr, node, index) {
+        return DomWidth / (arr[node.depth - 1] + 1) * this.getNodeIndex(this.nodes, index + 1)
+      },
+      /* 获取节点 Y 坐标 */
+      getY (DomHeight, constMaxDepth, node) {
+        return DomHeight / (constMaxDepth + 1) * node.depth
+      },
+      /* 绘制图表 */
       drawChart () {
+        // 初始化 Echarts 实例
         let myChart = this.$echarts.init(document.getElementById('main'))
-        let nodeList = []
-        let width = document.getElementById('main').offsetWidth
-        let height = document.getElementById('main').offsetHeight
-        let constMaxDepth = this.getDepth(this.nodes)
-        let array = this.getNodes(this.nodes)
+
+        let nodeList = [] // 节点
+        let width = document.getElementById('main').offsetWidth // 获取 DOM 宽度
+        let height = document.getElementById('main').offsetHeight // 获取 DOM 高度
+        let constMaxDepth = this.getDepth(this.nodes) // 获取节点层数
+        let array = this.getDepthNodes(this.nodes) // 获取每层节点数
         this.nodes.forEach((value, index, arr) => {
-          let x = width / (array[value.depth - 1] + 1) * this.getNodeIndex(this.nodes, index + 1)
-          let y = (height - 20) * value.depth / (constMaxDepth + 1) + 20
           let node = {
             name: value.name,
-            // value: rangeRandom(constMinRadius, constMaxRadius),
-            // id: index,
+            value: index,
             depth: value.depth,
-            x: x,
-            y: y,
+            x: this.getX(width, array, value, index),
+            y: this.getY(height, constMaxDepth, value),
             // category: depth === constMaxDepth ? 0 : 1,
-            symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460',
-            symbolSize: [30, 30]
+            // symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460',
+            symbol: 'circle'
+            // symbolSize: [40, 40]
           }
           nodeList.push(node)
         })
 
+        // 指定图表的配置项和数据
         let option = {
           tooltip: {},
           animationDurationUpdate: 1500,
@@ -145,19 +246,30 @@
             {
               type: 'graph',
               layout: 'none',
-              symbolSize: 6,
-              roam: true,
-              label: {
+              symbol: 'cirlce', // 关系图节点标记的图形
+              symbolSize: 40, // 关系图节点标记的大小
+              // roam: true, // 是否开启鼠标缩放和平移漫游
+              itemStyle: {
                 normal: {
-                  show: false
+                  color: 'rgb(18, 150, 219)'
                 }
               },
-              edgeSymbol: ['circle'],
+              label: {
+                normal: {
+                  show: true
+                }
+              },
+              edgeSymbol: ['circle', 'arrow'],
               edgeSymbolSize: [4, 10],
               edgeLabel: {
                 normal: {
+                  show: true, // 是否显示边标签
+                  position: 'middle',
+                  formatter: '{b}',
                   textStyle: {
-                    fontSize: 20
+                    color: 'rgb(192, 0, 0)',
+                    fontWeight: 'bold',
+                    fontSize: 12
                   }
                 }
               },
@@ -165,7 +277,7 @@
               links: this.links,
               lineStyle: {
                 normal: {
-                  color: 'rgb(117, 171, 220)',
+                  color: 'rgb(18, 150, 219)',
                   opacity: 0.9,
                   width: 2,
                   curveness: 0
@@ -174,6 +286,8 @@
             }
           ]
         }
+
+        // 使用指定的配置项和数据绘制图表
         myChart.setOption(option)
       }
     },
