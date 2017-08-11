@@ -13,7 +13,7 @@
 
     <el-col class="main">
       <aside :class="isCollapse ? 'menu-collapse' : 'menu'">
-        <el-menu default-active="jgraph" class="el-menu-vertical-demo" :collapse="isCollapse" router>
+        <el-menu default-active="d3graph" class="el-menu-vertical-demo" :collapse="isCollapse" router>
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-message"></i>
@@ -21,6 +21,7 @@
             </template>
             <el-menu-item index="egraph">关系图1</el-menu-item>
             <el-menu-item index="jgraph">关系图2</el-menu-item>
+            <el-menu-item index="d3graph">关系图3</el-menu-item>
           </el-submenu>
           <el-menu-item index="">
             <i class="el-icon-menu"></i>
@@ -122,8 +123,10 @@
         padding: 20px;
         flex: 1;
         .content-wrapper {
-          margin-top: 10px;
+          margin-top: 20px;
           box-sizing: border-box;
+          border-radius: 3px;
+          background-color: #fff;
         }
       }
     }

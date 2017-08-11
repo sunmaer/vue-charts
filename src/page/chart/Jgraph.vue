@@ -6,6 +6,8 @@
 <script>
 import $ from 'jquery'
 
+require('../../assets/css/demo.css')
+
 export default {
   name: 'Index',
   data () {
@@ -34,11 +36,11 @@ export default {
           }
         ],
         location: [
-          ['Moe', 4, 14],
-          ['Love', 4, 24],
-          ['TaoBeier', 4, 34],
-          ['TaoBeier', 20, 24],
-          ['MoeLove', 4, 4]
+          ['Moe', 25, 10],
+          ['Love', 15, 20],
+          ['TaoBeier', 25, 20],
+          ['TaoBeier', 40, 20],
+          ['MoeLove', 25, 2]
         ],
         line: [
           ['58c21d713819d56d68763918', '58c21d803819d56d68763919'],
@@ -119,8 +121,8 @@ export default {
           })
         }
         for (const i of flowData.location) {
-          $(`.${i[0]}`).css('left', i[1] * 20)
-          $(`.${i[0]}`).css('top', i[2] * 20)
+          $(`.${i[0]}`).css('left', i[1] * 19)
+          $(`.${i[0]}`).css('top', i[2] * 19)
         }
         for (const point of flowData.point) {
           instance.draggable(`${point._id}`)
@@ -137,7 +139,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .point.chart_act_0 {
   color: #9cc;
 }

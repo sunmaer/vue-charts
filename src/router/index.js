@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/common/Home'
 import Egraph from '@/page/chart/Egraph'
 import Jgraph from '@/page/chart/Jgraph'
+import D3graph from '@/page/chart/D3graph'
 
 Vue.use(Router)
 
@@ -15,7 +16,7 @@ export default new Router({
       children: [
         {
           path: '',
-          component: Jgraph
+          component: D3graph
         },
         {
           path: 'egraph',
@@ -24,6 +25,10 @@ export default new Router({
         {
           path: 'jgraph',
           component: Jgraph
+        },
+        {
+          path: 'd3graph',
+          component: D3graph
         }
       ]
     }
