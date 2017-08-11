@@ -92,8 +92,7 @@
       getNodes (nodeList) {
         let constMaxDepth = this.getDepth(nodeList)
         let array = new Array(constMaxDepth)
-        let len = array.length
-        for (let i = 0; i < len; i++) {
+        for (let i = 0; i < constMaxDepth; i++) { // 初始化数组
           array[i] = 0
         }
         nodeList.forEach((value, index, arr) => {
@@ -101,7 +100,7 @@
         })
         return array
       },
-      /* 获取每层内部节点顺序 */
+      /* 获取每层节点内部顺序 */
       getNodeIndex (nodeList, index) {
         let array = this.getNodes(nodeList)
         let count = 0
@@ -111,7 +110,6 @@
           i++
         }
         count -= array[i - 1]
-        console.log(index - count)
         return index - count
       },
       /* 画图 */
@@ -128,7 +126,7 @@
           let node = {
             name: value.name,
             // value: rangeRandom(constMinRadius, constMaxRadius),
-            id: index,
+            // id: index,
             depth: value.depth,
             x: x,
             y: y,
