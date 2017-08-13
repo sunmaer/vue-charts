@@ -30,21 +30,21 @@ export default {
           .data(root.descendants().slice(1))
           .enter().append("path")
           .attr("class", "link")
-          .attr("d", function (d) {
-            return "M" + d.y + "," + d.x
-              + "C" + (d.parent.y + 120) + "," + d.x
-              + " " + (d.parent.y + 120) + "," + d.parent.x
-              + " " + d.parent.y + "," + d.parent.x
-          })
-          // .attr("d", function(d){
-          //       return "M"+d.y+" "+d.x+
-          //       "L"+(d.parent.y+120)+" "+d.x+
-          //       " L"+(d.parent.y+120)+" "+d.parent.x+" L"+
-          //       d.parent.y+" "+d.parent.x
+          // .attr("d", function (d) {
+          //   return "M" + d.y + "," + d.x
+          //     + "C" + (d.parent.y + 120) + "," + d.x
+          //     + " " + (d.parent.y + 120) + "," + d.parent.x
+          //     + " " + d.parent.y + "," + d.parent.x
           // })
-          // .attr("style", function () {
-          //   return "stroke:#F7881F"
-          // });
+          .attr("d", function(d){
+                return "M"+d.y+" "+d.x+
+                "L"+(d.parent.y+120)+" "+d.x+
+                " L"+(d.parent.y+120)+" "+d.parent.x+" L"+
+                d.parent.y+" "+d.parent.x
+          })
+          .attr("style", function () {
+            return "stroke:#F7881F"
+          });
 
         let node = g.selectAll(".node")
           .data(root.descendants())
