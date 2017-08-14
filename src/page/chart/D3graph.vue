@@ -12,9 +12,11 @@ export default {
   methods: {
     /* 绘制图表 */
     drawChart() {
+      let DomWidth = document.getElementById("main").offsetWidth
+      
       let svg = this.$d3.select("#main")
         .append("svg")
-        .attr("width", 1000)
+        .attr("width", DomWidth)
         .attr("height", 500)
 
       let width = +svg.attr("width")
@@ -22,7 +24,7 @@ export default {
       let g = svg.append("g").attr("transform", "translate(0,50)")
 
       let tree = this.$d3.tree()
-        .size([width, height-160])
+        .size([width, height-100])
 
       this.$d3.json("static/data.json", (error, data) => {
         if (error) throw error
@@ -37,9 +39,9 @@ export default {
           .attr("class", "link")
           .attr("d", function (d) {
             return "M" + d.x + " " + d.y +
-              "L" + d.parent.x + " " + d.y +
-              " L" + d.parent.x + " " + d.parent.y + 
-              " L" + d.parent.x + " " + d.parent.y
+              "L" + d.x + " " + (d.parent.y + 100) +
+              "L" + d.parent.x + " " + (d.parent.y + 100) + 
+              "L" + d.parent.x + " " + d.parent.y
           })
           .attr("style", function () {
             return "stroke: rgb(18, 150, 219)"
@@ -54,15 +56,19 @@ export default {
           })
 
         node.append("circle")
-          .attr("r", 2.5);
+          .attr("r", 20)
+          .attr("style","fill: rgb(18, 150, 219)")
 
         node.append("text")
-          .attr("dy", 3)
-          .attr("x", function (d) { return d.children ? -8 : 8; })
-          .style("text-anchor", function (d) { return d.children ? "end" : "start" })
-          .text(function (d) {
-            return d.data.name
+          .attr("dx", function (d) {
+            return 0;
           })
+          .attr("dy", 5)
+          .style("text-anchor", function (d) {
+            return "middle";
+          })
+          .style("fill", "#fff")
+          .text(function (d) { return d.data.name; })
       })
     }
   },
