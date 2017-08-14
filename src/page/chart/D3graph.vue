@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <svg width="1100" height="500"></svg>
+    <div id="main" style="width: 100%; height: 500px"></div>
   </el-row>
 </template>
 
@@ -12,18 +12,23 @@ export default {
   methods: {
     /* 绘制图表 */
     drawChart() {
-      let svg = this.$d3.select("svg")
+      let svg = this.$d3.select("#main")
+        .append("svg")
+        .attr("width", 1000)
+        .attr("height", 500)
+
       let width = +svg.attr("width")
       let height = +svg.attr("height")
-      let g = svg.append("g").attr("transform", "translate(100,0)")
+      let g = svg.append("g").attr("transform", "translate(0,50)")
 
       let tree = this.$d3.tree()
-        .size([height, width - 160])
+        .size([width, height-160])
 
       this.$d3.json("static/data.json", (error, data) => {
         if (error) throw error
 
         let root = this.$d3.hierarchy(data)
+        
         tree(root)
 
         let link = g.selectAll(".link")
@@ -31,27 +36,21 @@ export default {
           .enter().append("path")
           .attr("class", "link")
           .attr("d", function (d) {
-            return "M" + d.y + "," + d.x
-              + "C" + (d.parent.y + 120) + "," + d.x
-              + " " + (d.parent.y + 120) + "," + d.parent.x
-              + " " + d.parent.y + "," + d.parent.x
+            return "M" + d.x + " " + d.y +
+              "L" + d.parent.x + " " + d.y +
+              " L" + d.parent.x + " " + d.parent.y + 
+              " L" + d.parent.x + " " + d.parent.y
           })
-          // .attr("d", function(d){
-          //       return "M"+d.y+" "+d.x+
-          //       "L"+(d.parent.y+120)+" "+d.x+
-          //       " L"+(d.parent.y+120)+" "+d.parent.x+" L"+
-          //       d.parent.y+" "+d.parent.x
-          // })
-          // .attr("style", function () {
-          //   return "stroke:#F7881F"
-          // });
+          .attr("style", function () {
+            return "stroke: rgb(18, 150, 219)"
+          })
 
         let node = g.selectAll(".node")
           .data(root.descendants())
           .enter().append("g")
-          .attr("class", function (d) { return "node" + (d.children ? " node--internal" : " node--leaf") })
+          .attr("class", ".node")
           .attr("transform", function (d) {
-            return "translate(" + d.y + "," + d.x + ")"
+            return "translate(" + d.x + "," + d.y + ")"
           })
 
         node.append("circle")
@@ -73,7 +72,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .node {
     font: 12px sans-serif;
   }
