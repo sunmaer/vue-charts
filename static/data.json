@@ -8,7 +8,21 @@
       "children": [
         {
           "name": "杭州",
-          "number": 100
+          "number": 100,
+          "children": [
+            {
+              "name": "余杭区"
+            },
+            {
+              "name": "西湖区"
+            },
+            {
+              "name": "滨江区"
+            },
+            {
+              "name": "萧山区"
+            }
+          ]
         },
         {
           "name": "宁波",

@@ -13,24 +13,25 @@ export default {
     /* 绘制图表 */
     drawChart() {
       let DomWidth = document.getElementById("main").offsetWidth
+      let DomHeight = document.getElementById("main").offsetHeight
 
       let svg = this.$d3.select("#main")
         .append("svg")
         .attr("width", DomWidth)
-        .attr("height", 500)
+        .attr("height", DomHeight)
 
-      let width = +svg.attr("width")
-      let height = +svg.attr("height")
       let g = svg.append("g").attr("transform", "translate(0,50)")
 
       let tree = this.$d3.tree()
-        .size([width, height-100])
+        .size([DomWidth, DomHeight-100])
 
       this.$d3.json("static/data.json", (error, data) => {
         if (error) throw error
 
         let root = this.$d3.hierarchy(data)
         
+        let space = (DomHeight - 100)/(root.height) * 0.7
+
         tree(root)
 
         let link = g.selectAll(".link")
@@ -39,8 +40,8 @@ export default {
           .attr("class", "link")
           .attr("d", function (d) {
             return "M" + d.x + " " + d.y +
-              "L" + d.x + " " + (d.parent.y + 70) +
-              "L" + d.parent.x + " " + (d.parent.y + 70) + 
+              "L" + d.x + " " + (d.parent.y + space) +
+              "L" + d.parent.x + " " + (d.parent.y + space) + 
               "L" + d.parent.x + " " + d.parent.y
           })
           .attr("style", function () {
