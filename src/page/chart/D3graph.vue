@@ -13,7 +13,7 @@ export default {
     /* 绘制图表 */
     drawChart() {
       let DomWidth = document.getElementById("main").offsetWidth
-      
+
       let svg = this.$d3.select("#main")
         .append("svg")
         .attr("width", DomWidth)
@@ -39,8 +39,8 @@ export default {
           .attr("class", "link")
           .attr("d", function (d) {
             return "M" + d.x + " " + d.y +
-              "L" + d.x + " " + (d.parent.y + 100) +
-              "L" + d.parent.x + " " + (d.parent.y + 100) + 
+              "L" + d.x + " " + (d.parent.y + 70) +
+              "L" + d.parent.x + " " + (d.parent.y + 70) + 
               "L" + d.parent.x + " " + d.parent.y
           })
           .attr("style", function () {
@@ -68,6 +68,7 @@ export default {
             return "middle";
           })
           .style("fill", "#fff")
+          .style("font-size", "12px")
           .text(function (d) { return d.data.name; })
       })
     }
