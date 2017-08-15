@@ -40,7 +40,12 @@
       getLinks () {
         let linkList = []
         this.links.forEach(function (value, index, arr) {
-          
+          let link = {
+            source: value.sourceId,
+            target: value.targetId,
+            value: value.value
+          }
+          linkList.push(link)
         })
       },
       /* 绘制图表 */
