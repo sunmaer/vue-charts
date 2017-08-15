@@ -22,6 +22,7 @@
             <el-menu-item index="egraph">关系图1</el-menu-item>
             <el-menu-item index="jgraph">关系图2</el-menu-item>
             <el-menu-item index="d3graph">关系图3</el-menu-item>
+            <el-menu-item index="graph">关系图4</el-menu-item>
           </el-submenu>
           <el-menu-item index="">
             <i class="el-icon-menu"></i>

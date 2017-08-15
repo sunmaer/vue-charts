@@ -4,6 +4,7 @@ import Home from '@/components/common/Home'
 import Egraph from '@/page/chart/Egraph'
 import Jgraph from '@/page/chart/Jgraph'
 import D3graph from '@/page/chart/D3graph'
+import Graph from '@/page/chart/Graph'
 
 Vue.use(Router)
 
@@ -29,6 +30,10 @@ export default new Router({
         {
           path: 'd3graph',
           component: D3graph
+        },
+        {
+          path: 'graph',
+          component: Graph
         }
       ]
     }

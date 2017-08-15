@@ -56,7 +56,18 @@ export default {
           .attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")"
           })
-
+        let node1 = g.selectAll(".node")
+          .filter(function(d, i) {
+            return d.depth === 0
+          })
+          // console.log(node1)
+        node1.append("image") // 插入图片
+          .attr("x", -15)
+          .attr("y", -15)
+          .attr("width", 30)
+          .attr("height", 30)
+          .attr("xlink:href", "https://avatars3.githubusercontent.com/u/18280125?v=4&s=460")
+          
         node.append("circle") // 绘制圆圈
           .attr("r", 20)
           .attr("style","fill: rgb(18, 150, 219)")
