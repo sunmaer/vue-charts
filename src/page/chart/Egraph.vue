@@ -246,13 +246,17 @@
             {
               type: 'graph',
               layout: 'none',
-              symbol: 'cirlce', // 关系图节点标记的图形
+              symbol: 'circle', // 关系图节点标记的图形
               symbolSize: 40, // 关系图节点标记的大小
               // roam: true, // 是否开启鼠标缩放和平移漫游
               itemStyle: {
                 normal: {
                   color: 'rgb(18, 150, 219)'
                 }
+              },
+              force: {
+                repulsion: 50,
+                edgeLength: 100
               },
               label: {
                 normal: {
@@ -297,7 +301,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
 
