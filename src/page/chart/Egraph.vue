@@ -207,6 +207,7 @@
         this.nodes.forEach((value, index, arr) => {
           let node = {
             name: value.name,
+            value: 'sdf',
             depth: value.depth,
             x: this.getX(width, array, value, index),
             y: this.getY(height, constMaxDepth, value),
@@ -244,7 +245,10 @@
               },
               label: {
                 normal: {
-                  show: true
+                  show: true,
+                  formatter: (params) => {
+                    return params.value
+                  }
                 }
               },
               // edgeSymbol: ['circle', 'arrow'],

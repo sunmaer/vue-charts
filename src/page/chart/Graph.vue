@@ -25,11 +25,24 @@
     },
     methods: {
       /* 获取节点 */
-      // getNodes () {
-      //   this.nodes.forEach(function(value, index, arr) {
-
-      //   })
-      // },
+      getNodes () {
+        let nodeList = []
+        this.nodes.forEach(function (value, index, arr) {
+          let node = {
+            name: value.id,
+            value: value.name
+          }
+          nodeList.push(node)
+        })
+        return nodeList
+      },
+      /* 获取边 */
+      getLinks () {
+        let linkList = []
+        this.links.forEach(function (value, index, arr) {
+          
+        })
+      },
       /* 绘制图表 */
       render () {
         // 初始化 Echarts 实例
@@ -58,6 +71,7 @@
               itemStyle: { // 图形样式
                 normal: {
                   color: 'rgb(18, 150, 219)'
+                  // barBorderRadius: 50
                 }
               },
               lineStyle: { // 关系边样式
@@ -74,6 +88,9 @@
                   position: 'bottom',
                   textStyle: {
                     color: 'gray'
+                  },
+                  formatter: (params) => {
+                    return params.value
                   }
                 }
               },
