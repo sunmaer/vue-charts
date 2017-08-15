@@ -1,7 +1,7 @@
 <template>
-  <el-row>
+  <div>
     <div id="main" style="width: 100%; height: 500px"></div>
-  </el-row>
+  </div>
 </template>
 
 <script>
@@ -88,85 +88,67 @@
         links: [
           {
             source: 'node1',
-            target: 'node2',
-            weight: 1
+            target: 'node2'
           },
           {
             source: 'node1',
-            target: 'node3',
-            weight: 1
+            target: 'node3'
           },
           {
             source: 'node2',
-            target: 'node4',
-            weight: 1
+            target: 'node4'
           },
           {
             source: 'node2',
-            target: 'node5',
-            weight: 1
+            target: 'node5'
           },
           {
             source: 'node3',
-            target: 'node6',
-            weight: 1
+            target: 'node6'
           },
           {
             source: 'node3',
-            target: 'node7',
-            weight: 1
+            target: 'node7'
           },
           {
             source: 'node4',
-            target: 'node8',
-            weight: 1
+            target: 'node8'
           },
           {
             source: 'node4',
-            target: 'node9',
-            weight: 1
+            target: 'node9'
+          },
+          {
+            source: 'node4',
+            target: 'node10'
           },
           {
             source: 'node5',
-            target: 'node10',
-            weight: 1
+            target: 'node10'
           },
           {
             source: 'node5',
-            target: 'node11',
-            weight: 1
+            target: 'node11'
           },
           {
             source: 'node6',
-            target: 'node12',
-            weight: 1
+            target: 'node12'
           },
           {
             source: 'node6',
-            target: 'node13',
-            weight: 1
+            target: 'node13'
+          },
+          {
+            source: 'node6',
+            target: 'node14'
           },
           {
             source: 'node7',
-            target: 'node14',
-            weight: 1
+            target: 'node14'
           },
           {
             source: 'node7',
-            target: 'node15',
-            weight: 1,
-            label: {
-              normal: {
-                show: true, // 是否显示边标签
-                position: 'middle',
-                formatter: '自定义边 Label',
-                textStyle: {
-                  color: 'rgb(192, 0, 0)',
-                  fontWeight: 'bold',
-                  fontSize: 12
-                }
-              }
-            }
+            target: 'node15'
           }
         ]
       }
@@ -213,7 +195,7 @@
         return DomHeight / (constMaxDepth + 1) * node.depth
       },
       /* 绘制图表 */
-      drawChart () {
+      render () {
         // 初始化 Echarts 实例
         let myChart = this.$echarts.init(document.getElementById('main'))
 
@@ -225,49 +207,51 @@
         this.nodes.forEach((value, index, arr) => {
           let node = {
             name: value.name,
-            value: index,
             depth: value.depth,
             x: this.getX(width, array, value, index),
             y: this.getY(height, constMaxDepth, value),
-            // category: depth === constMaxDepth ? 0 : 1,
-            // symbol: 'image://https://avatars3.githubusercontent.com/u/18280125?v=4&s=460',
-            symbol: 'circle'
-            // symbolSize: [40, 40]
+            symbol: 'circle',
+            symbolSize: [40, 40]
           }
           nodeList.push(node)
         })
 
         // 指定图表的配置项和数据
         let option = {
-          tooltip: {},
-          animationDurationUpdate: 1500,
-          animationEasingUpdate: 'quinticInOut',
+          title: {
+            text: '标题',
+            top: '20'
+          },
           series: [
             {
               type: 'graph',
               layout: 'none',
               symbol: 'circle', // 关系图节点标记的图形
               symbolSize: 40, // 关系图节点标记的大小
-              // roam: true, // 是否开启鼠标缩放和平移漫游
+              roam: true, // 是否开启鼠标缩放和平移漫游
               itemStyle: {
                 normal: {
                   color: 'rgb(18, 150, 219)'
                 }
               },
-              force: {
-                repulsion: 50,
-                edgeLength: 100
+              lineStyle: {
+                normal: {
+                  color: 'rgb(18, 150, 219)',
+                  opacity: 0.9,
+                  width: 1,
+                  curveness: 0
+                }
               },
               label: {
                 normal: {
                   show: true
                 }
               },
-              edgeSymbol: ['circle', 'arrow'],
-              edgeSymbolSize: [4, 10],
+              // edgeSymbol: ['circle', 'arrow'],
+              edgeSymbolSize: [2, 6],
               edgeLabel: {
                 normal: {
-                  show: true, // 是否显示边标签
+                  show: false, // 是否显示边标签
                   position: 'middle',
                   formatter: '{b}',
                   textStyle: {
@@ -278,15 +262,7 @@
                 }
               },
               data: nodeList,
-              links: this.links,
-              lineStyle: {
-                normal: {
-                  color: 'rgb(18, 150, 219)',
-                  opacity: 0.9,
-                  width: 2,
-                  curveness: 0
-                }
-              }
+              links: this.links
             }
           ]
         }
@@ -296,7 +272,7 @@
       }
     },
     mounted () {
-      this.drawChart()
+      this.render()
     }
   }
 </script>

@@ -24,6 +24,12 @@
       }
     },
     methods: {
+      /* 获取节点 */
+      // getNodes () {
+      //   this.nodes.forEach(function(value, index, arr) {
+
+      //   })
+      // },
       /* 绘制图表 */
       render () {
         // 初始化 Echarts 实例
