@@ -75,8 +75,8 @@
               symbolSize: [60, 40],
               itemStyle: { // 图形样式
                 normal: {
-                  color: 'rgb(18, 150, 219)'
-                  // barBorderRadius: 50
+                  color: 'rgb(18, 150, 219)',
+                  borderColor: 'rgb(192, 0, 0)'
                 }
               },
               lineStyle: { // 关系边样式
@@ -95,7 +95,7 @@
                     color: 'gray'
                   },
                   formatter: (params) => {
-                    return params.value
+                    return params.name
                   }
                 }
               },
