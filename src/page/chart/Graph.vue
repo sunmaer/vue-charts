@@ -24,30 +24,6 @@
       }
     },
     methods: {
-      /* 获取节点 */
-      getNodes () {
-        let nodeList = []
-        this.nodes.forEach(function (value, index, arr) {
-          let node = {
-            name: value.id,
-            value: value.name
-          }
-          nodeList.push(node)
-        })
-        return nodeList
-      },
-      /* 获取边 */
-      getLinks () {
-        let linkList = []
-        this.links.forEach(function (value, index, arr) {
-          let link = {
-            source: value.sourceId,
-            target: value.targetId,
-            value: value.value
-          }
-          linkList.push(link)
-        })
-      },
       /* 绘制图表 */
       render () {
         // 初始化 Echarts 实例
