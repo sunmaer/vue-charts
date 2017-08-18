@@ -19,10 +19,10 @@
               <i class="el-icon-message"></i>
               <span slot="title">导航一</span>
             </template>
-            <el-menu-item index="egraph">关系图1</el-menu-item>
-            <el-menu-item index="jgraph">关系图2</el-menu-item>
-            <el-menu-item index="d3graph">关系图3</el-menu-item>
-            <el-menu-item index="graph">关系图4</el-menu-item>
+            <el-menu-item index="treeGraph">Echarts 树状图</el-menu-item>
+            <el-menu-item index="flowGraph">Jsplumb 流程图</el-menu-item>
+            <el-menu-item index="orgGraph">D3.js 组织结构图</el-menu-item>
+            <el-menu-item index="netGraph">Echarts 人物关系图</el-menu-item>
           </el-submenu>
           <el-menu-item index="">
             <i class="el-icon-menu"></i>

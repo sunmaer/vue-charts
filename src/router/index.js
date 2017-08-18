@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/common/Home'
-import Egraph from '@/page/chart/Egraph'
-import Jgraph from '@/page/chart/Jgraph'
-import D3graph from '@/page/chart/D3graph'
-import Graph from '@/page/chart/Graph'
+import TreeGraph from '@/page/chart/TreeGraph'
+import FlowGraph from '@/page/chart/FlowGraph'
+import OrgGraph from '@/page/chart/OrgGraph'
+import NetGraph from '@/page/chart/NetGraph'
 
 Vue.use(Router)
 
@@ -17,23 +17,23 @@ export default new Router({
       children: [
         {
           path: '',
-          component: D3graph
+          component: OrgGraph
         },
         {
-          path: 'egraph',
-          component: Egraph
+          path: 'treeGraph',
+          component: TreeGraph
         },
         {
-          path: 'jgraph',
-          component: Jgraph
+          path: 'flowGraph',
+          component: FlowGraph
         },
         {
-          path: 'd3graph',
-          component: D3graph
+          path: 'orgGraph',
+          component: OrgGraph
         },
         {
-          path: 'graph',
-          component: Graph
+          path: 'netGraph',
+          component: NetGraph
         }
       ]
     }
