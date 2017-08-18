@@ -1,7 +1,7 @@
 <template>
-  <el-row>
+  <div>
     <div id="main" style="width: 100%; height: 500px"></div>
-  </el-row>
+  </div>
 </template>
 
 <script>

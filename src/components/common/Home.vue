@@ -13,7 +13,7 @@
 
     <el-col class="main">
       <aside :class="isCollapse ? 'menu-collapse' : 'menu'">
-        <el-menu default-active="d3graph" class="el-menu-vertical-demo" :collapse="isCollapse" router>
+        <el-menu default-active="orgGraph" class="el-menu-vertical-demo" :collapse="isCollapse" router>
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-message"></i>
