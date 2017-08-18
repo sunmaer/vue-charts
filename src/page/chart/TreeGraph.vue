@@ -207,7 +207,7 @@
         this.nodes.forEach((value, index, arr) => {
           let node = {
             name: value.name,
-            value: 'sdf',
+            value: value.name,
             depth: value.depth,
             x: this.getX(width, array, value, index),
             y: this.getY(height, constMaxDepth, value),

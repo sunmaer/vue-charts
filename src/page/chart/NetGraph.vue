@@ -154,8 +154,8 @@
               },
               roam: true,
               // symbol: 'circle', // 关系图节点标记的图形
-              symbol: 'image://http://img15.3lian.com/2015/a1/16/d/202.jpg',
-              symbolSize: [60, 40],
+              symbol: 'image://http://otxtxlg3e.bkt.clouddn.com/user.png',
+              symbolSize: [30, 30],
               itemStyle: { // 图形样式
                 normal: {
                   color: 'rgb(18, 150, 219)',
